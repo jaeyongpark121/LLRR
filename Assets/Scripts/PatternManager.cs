@@ -7,9 +7,9 @@ public class PatternManager : MonoBehaviour
     // Start is called before the first frame update
     public static PatternManager instance;
 
-    void Start()
+    void Awake()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
