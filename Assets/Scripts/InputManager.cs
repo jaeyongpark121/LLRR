@@ -8,6 +8,8 @@ public class InputManager : MonoBehaviour
 {
     bool onPattern = false;
     string code = "abcd";
+    string[] subCode = new string[4];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,19 +30,14 @@ public class InputManager : MonoBehaviour
     {
         code = PatternManager.instance.MakePattern();
 
-        int count = code.Length - 1;
+        Debug.Log(code);
 
-        for (int i = 0; i < code.Length; i++)
+        for(int i = 0; i < code.Length/2; i ++)
         {
-            //count--;
-            if (count % 2 == 0)
-            {
-                code = code.Insert(count, " ");
-            }
+            subCode[i] = code.Substring(i * 2, 2);
         }
 
-        Debug.Log(code);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(10f);
 
         onPattern = false;
     }
