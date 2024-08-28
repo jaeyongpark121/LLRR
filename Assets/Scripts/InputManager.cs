@@ -16,7 +16,6 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         onGame = true;
-        //Debug.Log(code);
     }
 
     // Update is called once per frame
@@ -26,9 +25,11 @@ public class InputManager : MonoBehaviour
         if (!onPattern)
         {
             onPattern = true;
+            StartCoroutine(GetCode());
             for (int i = 0; i < pass.Length; i++)
             {
                 pass[i] = false;
+                Debug.Log(subCode[i]);
             }
         }
         
@@ -37,52 +38,76 @@ public class InputManager : MonoBehaviour
         {
             if (!pass[0])
             {
-                Check(subCode[0], pass[0]);
+                Debug.Log("checking " + subCode[0]);
+                Check(subCode[0], ref pass[0]);
             }
             else if (!pass[1])
             {
-                Check(subCode[1], pass[1]);
+                Debug.Log("checking " + subCode[1]);
+                Check(subCode[1], ref pass[1]);
             }
             else if (!pass[2])
             {
-                Check(subCode[2], pass[2]);
+                Debug.Log("checking " + subCode[2]);
+                Check(subCode[2], ref pass[2]);
             }
             else if (!pass[3])
             {
-                Check(subCode[3], pass[3]);
+                Debug.Log("checking " + subCode[3]);
+                Check(subCode[3], ref pass[3]);
             }
         }
     }
 
     //패턴 체크 함수
-    void Check(string subCode, bool pass)
+    void Check(string subCode, ref bool pass)
     {
         if(subCode == "LR")
         {
             if(Input.GetKeyDown(KeyCode.L))
             {
+                Debug.Log(subCode + " clear!");
                 pass = true;
+            }
+            else if(Input.GetKeyDown(KeyCode.R))
+            {
+                GameOver();
             }
         }
         else if(subCode == "LL")
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
+                Debug.Log(subCode + " clear!");
                 pass = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.L))
+            {
+                GameOver();
             }
         }
         else if (subCode == "RL")
         {
             if (Input.GetKeyDown(KeyCode.L))
             {
+                Debug.Log(subCode + " clear!");
                 pass = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                GameOver();
             }
         }
         else if (subCode == "RR")
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
+                Debug.Log(subCode + " clear!");
                 pass = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.L))
+            {
+                GameOver();
             }
         }
     }
@@ -90,6 +115,7 @@ public class InputManager : MonoBehaviour
     // 게임오버 함수
     void GameOver()
     {
+       
         onGame = false;
         StopCoroutine(GetCode());
         Debug.Log("GameOver");
@@ -119,6 +145,5 @@ public class InputManager : MonoBehaviour
         {
             GameOver();
         }
-
     }
 }
